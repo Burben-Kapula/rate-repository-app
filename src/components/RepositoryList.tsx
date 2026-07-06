@@ -1,7 +1,9 @@
 import { FlatList, StyleSheet, View } from 'react-native';
 
+import ErrorView from './ErrorView';
+import LoadingView from './LoadingView';
 import RepositoryItem from './RepositoryItem';
-import { repositories } from '../data/repositories';
+import useRepositories from '../hooks/useRepositories';
 
 const styles = StyleSheet.create({
   separator: {
@@ -15,6 +17,21 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
+  const { repositories, loading, error, refetch } = useRepositories();
+
+  if (loading && repositories.length === 0) {
+    return <LoadingView message="Fetching repositories..." />;
+  }
+
+  if (error) {
+    return (
+      <ErrorView
+        message="Failed to load repositories. Is the API server running?"
+        onRetry={() => refetch()}
+      />
+    );
+  }
+
   return (
     <FlatList
       data={repositories}
@@ -22,6 +39,8 @@ const RepositoryList = () => {
       renderItem={({ item }) => <RepositoryItem repository={item} />}
       ItemSeparatorComponent={ItemSeparator}
       contentContainerStyle={styles.list}
+      onRefresh={refetch}
+      refreshing={loading}
     />
   );
 };
