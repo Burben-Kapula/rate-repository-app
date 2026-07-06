@@ -1,10 +1,12 @@
 import { StyleSheet, View } from 'react-native';
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-native';
 import * as yup from 'yup';
 
 import Button from '../components/Button';
 import FormTextInput from '../components/FormTextInput';
 import Text from '../components/Text';
+import useSignIn from '../hooks/useSignIn';
 import theme from '../theme';
 
 const initialValues = {
@@ -26,11 +28,27 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 16,
   },
+  error: {
+    marginBottom: 12,
+  },
 });
 
 const SignIn = () => {
-  const onSubmit = (values: typeof initialValues) => {
-    console.log(values);
+  const navigate = useNavigate();
+  const [signIn, { loading }] = useSignIn();
+
+  const onSubmit = async (values: typeof initialValues) => {
+    const { username, password } = values;
+
+    try {
+      const { data } = await signIn({ username, password });
+
+      if (data?.authenticate.accessToken) {
+        navigate('/');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const formik = useFormik({
@@ -62,7 +80,10 @@ const SignIn = () => {
         isTouched={formik.touched.password}
         secureTextEntry
       />
-      <Button label="Sign in" onPress={() => formik.handleSubmit()} />
+      <Button
+        label={loading ? 'Signing in...' : 'Sign in'}
+        onPress={() => formik.handleSubmit()}
+      />
     </View>
   );
 };
