@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+# editor / assistant
+.claude/
+
 # Expo
 .expo/
 dist/

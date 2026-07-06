@@ -9,6 +9,7 @@ const httpLink = createHttpLink({
   uri: apolloUri,
 });
 
+// Relay-style pagination merges cursor-based pages in the Apollo cache.
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {
@@ -25,6 +26,7 @@ const cache = new InMemoryCache({
 });
 
 const createApolloClient = (authStorage: AuthStorage): ApolloClient => {
+  // Attach the stored JWT to every GraphQL request when available.
   const authLink = setContext(async (_, { headers }) => {
     try {
       const accessToken = await authStorage.getAccessToken();

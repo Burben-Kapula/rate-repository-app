@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Thin wrapper around AsyncStorage for persisting the auth token.
 class AuthStorage {
   private namespace: string;
 

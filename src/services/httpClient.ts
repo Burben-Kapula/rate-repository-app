@@ -1,3 +1,4 @@
+// Axios client for the REST API (GraphQL is handled by Apollo Client).
 import axios from 'axios';
 
 import { apiUri } from '../utils/config';

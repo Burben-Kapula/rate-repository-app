@@ -26,6 +26,7 @@ const useRepositories = (variables: RepositoryQueryVariables = {}) => {
       fetchPolicy: 'cache-and-network',
     });
 
+  // Load the next page when the user scrolls to the end of the list.
   const handleFetchMore = () => {
     const canFetchMore = !loading && data?.repositories.pageInfo?.hasNextPage;
 

@@ -23,6 +23,7 @@ const useSignIn = () => {
     const accessToken = response.data?.authenticate.accessToken;
 
     if (accessToken) {
+      // Store token first, then reset cache so authenticated queries re-run.
       await authStorage.setAccessToken(accessToken);
       await apolloClient.resetStore();
     }

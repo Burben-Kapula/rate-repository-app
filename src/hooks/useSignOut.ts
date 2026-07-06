@@ -9,6 +9,7 @@ const useSignOut = () => {
   const navigate = useNavigate();
 
   const signOut = async () => {
+    // Token must be removed before resetStore so the me query returns null.
     await authStorage.removeAccessToken();
     await apolloClient.resetStore();
     navigate('/');

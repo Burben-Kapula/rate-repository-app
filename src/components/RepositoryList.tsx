@@ -33,6 +33,7 @@ export interface RepositoryListContainerProps {
   onRepositoryPress: (id: string) => void;
 }
 
+// Class component keeps the search header mounted so the TextInput keeps focus.
 export class RepositoryListContainer extends React.Component<RepositoryListContainerProps> {
   renderHeader = () => {
     return (
@@ -75,6 +76,7 @@ const RepositoryList = () => {
     REPOSITORY_ORDER_OPTIONS[0],
   );
   const [search, setSearch] = useState('');
+  // Debounce avoids firing a GraphQL request on every keystroke.
   const [debouncedSearch] = useDebounce(search, 500);
 
   const { repositories, loading, error, refetch, fetchMore } = useRepositories({

@@ -1,5 +1,6 @@
 import Constants from 'expo-constants';
 
+// API URLs are injected via app.config.js from the .env file at build time.
 const extra = Constants.expoConfig?.extra as
   { apolloUri?: string; apiUri?: string } | undefined;
 

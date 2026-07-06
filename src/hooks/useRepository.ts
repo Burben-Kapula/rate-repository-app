@@ -23,6 +23,7 @@ const useRepository = ({ id, first = 3 }: UseRepositoryOptions) => {
     },
   );
 
+  // Fetch additional review pages when scrolling the repository detail view.
   const handleFetchMore = () => {
     const reviews = data?.repository.reviews;
     const canFetchMore = !loading && reviews?.pageInfo?.hasNextPage;
