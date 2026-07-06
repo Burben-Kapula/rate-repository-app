@@ -3,11 +3,14 @@ import { Image, StyleSheet, View } from 'react-native';
 import LanguageTag from './LanguageTag';
 import RepositoryStats from './RepositoryStats';
 import Text from './Text';
+import Button from './Button';
 import { Repository } from '../types/repository';
 import theme from '../theme';
 
 interface RepositoryItemProps {
   repository: Repository;
+  showGithubButton?: boolean;
+  onGithubPress?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -34,11 +37,18 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 8,
   },
+  githubButton: {
+    marginTop: 12,
+  },
 });
 
-const RepositoryItem = ({ repository }: RepositoryItemProps) => {
+const RepositoryItem = ({
+  repository,
+  showGithubButton = false,
+  onGithubPress,
+}: RepositoryItemProps) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="repositoryItem">
       <View style={styles.header}>
         <Image
           source={{ uri: repository.ownerAvatarUrl }}
@@ -60,6 +70,11 @@ const RepositoryItem = ({ repository }: RepositoryItemProps) => {
         ratingAverage={repository.ratingAverage}
         reviewCount={repository.reviewCount}
       />
+      {showGithubButton && onGithubPress && (
+        <View style={styles.githubButton}>
+          <Button label="Open in GitHub" onPress={onGithubPress} />
+        </View>
+      )}
     </View>
   );
 };

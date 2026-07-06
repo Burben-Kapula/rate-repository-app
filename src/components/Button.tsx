@@ -6,6 +6,7 @@ import theme from '../theme';
 interface ButtonProps {
   label: string;
   onPress: () => void;
+  testID?: string;
 }
 
 const styles = StyleSheet.create({
@@ -21,9 +22,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const Button = ({ label, onPress }: ButtonProps) => {
+const Button = ({ label, onPress, testID }: ButtonProps) => {
   return (
-    <Pressable onPress={onPress} style={styles.button}>
+    <Pressable onPress={onPress} style={styles.button} testID={testID}>
       <Text fontWeight="bold" style={styles.label}>
         {label}
       </Text>
