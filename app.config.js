@@ -1,0 +1,29 @@
+import 'dotenv/config';
+
+export default {
+  name: 'rate-repository-app',
+  slug: 'rate-repository-app',
+  version: '1.0.0',
+  orientation: 'portrait',
+  icon: './assets/icon.png',
+  userInterfaceStyle: 'light',
+  ios: {
+    supportsTablet: true,
+  },
+  android: {
+    adaptiveIcon: {
+      backgroundColor: '#E6F4FE',
+      foregroundImage: './assets/android-icon-foreground.png',
+      backgroundImage: './assets/android-icon-background.png',
+      monochromeImage: './assets/android-icon-monochrome.png',
+    },
+    predictiveBackGestureEnabled: false,
+  },
+  web: {
+    favicon: './assets/favicon.png',
+  },
+  extra: {
+    apolloUri: process.env.APOLLO_URI,
+    apiUri: process.env.API_URI,
+  },
+};
