@@ -8,4 +8,14 @@ export interface Repository {
   ratingAverage: number;
   reviewCount: number;
   ownerAvatarUrl: string;
+  url?: string;
+}
+
+export type RepositoryOrderBy = 'CREATED_AT' | 'RATING_AVERAGE';
+export type OrderDirection = 'ASC' | 'DESC';
+
+export interface RepositoryOrderOption {
+  label: string;
+  orderBy: RepositoryOrderBy;
+  orderDirection: OrderDirection;
 }

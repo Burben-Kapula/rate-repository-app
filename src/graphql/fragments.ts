@@ -11,5 +11,20 @@ export const REPOSITORY_FIELDS = gql`
     ratingAverage
     reviewCount
     ownerAvatarUrl
+    url
+  }
+`;
+
+export const REVIEW_FIELDS = gql`
+  fragment ReviewFields on Review {
+    id
+    text
+    rating
+    createdAt
+    repositoryId
+    user {
+      id
+      username
+    }
   }
 `;
